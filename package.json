@@ -75,6 +75,7 @@
     "rimraf": "^2.6.0",
     "rollup": "^0.58.2",
     "rollup-plugin-babel": "^3.0.4",
+    "rollup-plugin-commonjs": "^9.2.0",
     "rollup-plugin-node-resolve": "^3.3.0",
     "rollup-plugin-shader": "^0.0.3",
     "rollup-plugin-uglify": "^3.0.0",
