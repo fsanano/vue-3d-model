@@ -243,6 +243,15 @@ export default {
                     }
                 } )
 
+            } else {
+
+                this.$nextTick( () => {
+                    this.size = {
+                        width: this.width,
+                        height: this.height
+                    }
+                } )
+
             }
         },
         onMouseDown( event ) {
