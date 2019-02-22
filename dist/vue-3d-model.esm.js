@@ -46717,7 +46717,7 @@ var script = {
             };
         }
 
-        this.renderer = new WebGLRenderer({ antialias: true, alpha: true, canvas: this.$refs.canvas });
+        this.renderer = new WebGLRenderer({ antialias: true, alpha: true, canvas: this.$refs.canvas, preserveDrawingBuffer: true });
         this.renderer.shadowMap.enabled = true;
         this.renderer.gammaOutput = this.gammaOutput;
 
