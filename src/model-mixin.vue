@@ -467,7 +467,8 @@ export default {
         },
 
         cameraUpdate(event) {
-            const cameraState = JSON.stringify(camera.matrix.toArray());
+            const cameraState = JSON.stringify(this.camera.matrix.toArray());
+            console.clear();
             console.info('cameraState', cameraState);
             this.$emit( 'on-camera-update', cameraState );
         },
