@@ -451,6 +451,8 @@ export default {
                 this.controls = new OrbitControls( this.camera, this.$el );
                 this.controls.type = 'orbit';
 
+                this.controls.addEventListener('change', this.cameraUpdate );
+
             } else {
 
                 if ( this.controls ) {
@@ -463,6 +465,11 @@ export default {
             }
 
         },
+
+        cameraUpdate(event) {
+            this.$emit( 'on-camera-update', event );
+        },
+
         load() {
 
             if ( !this.src ) return;

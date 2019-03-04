@@ -46999,6 +46999,8 @@ var script = {
 
                 this.controls = new OrbitControls(this.camera, this.$el);
                 this.controls.type = 'orbit';
+
+                this.controls.addEventListener('change', this.cameraUpdate);
             } else {
 
                 if (this.controls) {
@@ -47007,6 +47009,9 @@ var script = {
                     this.controls = null;
                 }
             }
+        },
+        cameraUpdate: function cameraUpdate(event) {
+            this.$emit('on-camera-update', event);
         },
         load: function load() {
             var _this3 = this;
