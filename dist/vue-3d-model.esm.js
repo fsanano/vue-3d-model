@@ -47011,7 +47011,9 @@ var script = {
             }
         },
         cameraUpdate: function cameraUpdate(event) {
-            this.$emit('on-camera-update', event);
+            var cameraState = JSON.stringify(camera.matrix.toArray());
+            console.info('cameraState', cameraState);
+            this.$emit('on-camera-update', cameraState);
         },
         load: function load() {
             var _this3 = this;
