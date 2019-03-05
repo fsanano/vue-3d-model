@@ -86,6 +86,12 @@ export default {
                 return { x: 0, y: 0, z: 0 }
             }
         },
+        cameraState: {
+            type: Array,
+            default() {
+                return [1,0,0,0,0,1,-5.997577765137224e-17,0,0,5.997577765137224e-17,1,0,6.419757032144272,-1.6788339834700632,11.106714091265356,1];
+            },
+        },
         cameraUp: {
             type: Object
         },
@@ -202,6 +208,14 @@ export default {
                 this.updateCamera();
             }
         },
+        cameraState: {
+            deep: true,
+            handler( val ) {
+                if ( !this.object ) return;
+                console.info('update camera state');
+                this.setSavedCameraState(val);
+            }
+        },
         position: {
             deep: true,
             handler( val ) {
@@ -315,6 +329,7 @@ export default {
         },
         update() {
 
+            this.setSavedCameraState(this.cameraState);
             this.updateRenderer();
             this.updateCamera();
             this.updateLights();
@@ -479,6 +494,11 @@ export default {
             console.clear();
             console.info('cameraState', cameraState);
             this.$emit( 'on-camera-update', cameraState );
+        },
+
+        setSavedCameraState(cameraState) {
+            this.camera.matrix.fromArray(JSON.parse(cameraState));
+            this.camera.matrix.decompose(this.camera.position, this.camera.quaternion, this.camera.scale);
         },
 
         load() {

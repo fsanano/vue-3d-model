@@ -46648,6 +46648,12 @@ var script = {
                 return { x: 0, y: 0, z: 0 };
             }
         },
+        cameraState: {
+            type: Array,
+            default: function _default() {
+                return [1, 0, 0, 0, 0, 1, -5.997577765137224e-17, 0, 0, 5.997577765137224e-17, 1, 0, 6.419757032144272, -1.6788339834700632, 11.106714091265356, 1];
+            }
+        },
         cameraUp: {
             type: Object
         },
@@ -46767,6 +46773,14 @@ var script = {
                 this.updateCamera();
             }
         },
+        cameraState: {
+            deep: true,
+            handler: function handler(val) {
+                if (!this.object) return;
+                console.info('update camera state');
+                this.setSavedCameraState(val);
+            }
+        },
         position: {
             deep: true,
             handler: function handler(val) {
@@ -46874,6 +46888,7 @@ var script = {
         },
         update: function update() {
 
+            this.setSavedCameraState(this.cameraState);
             this.updateRenderer();
             this.updateCamera();
             this.updateLights();
@@ -47023,6 +47038,10 @@ var script = {
             console.clear();
             console.info('cameraState', cameraState);
             this.$emit('on-camera-update', cameraState);
+        },
+        setSavedCameraState: function setSavedCameraState(cameraState) {
+            this.camera.matrix.fromArray(JSON.parse(cameraState));
+            this.camera.matrix.decompose(this.camera.position, this.camera.quaternion, this.camera.scale);
         },
         load: function load() {
             var _this3 = this;
