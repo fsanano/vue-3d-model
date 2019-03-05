@@ -567,8 +567,10 @@ export default {
         fromJSON( json ) {
 
             const camera = this.loader.parse( json.camera );
+            console.info('fromJson', camera);
 
             this.camera.copy( camera );
+            this.camera.aspect = this.size.width / this.size.height;
             this.camera.updateProjectionMatrix();
 
         },
@@ -576,8 +578,8 @@ export default {
         toJSON() {
             const json = {
                 camera: this.camera.toJSON(),
-                scene: this.scene.toJSON(),
             };
+            console.info('toJson json:', json);
             return json;
         },
 

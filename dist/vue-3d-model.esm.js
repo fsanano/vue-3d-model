@@ -47100,15 +47100,17 @@ var script = {
         fromJSON: function fromJSON(json) {
 
             var camera = this.loader.parse(json.camera);
+            console.info('fromJson', camera);
 
             this.camera.copy(camera);
+            this.camera.aspect = this.size.width / this.size.height;
             this.camera.updateProjectionMatrix();
         },
         toJSON: function toJSON() {
             var json = {
-                camera: this.camera.toJSON(),
-                scene: this.scene.toJSON()
+                camera: this.camera.toJSON()
             };
+            console.info('toJson json:', json);
             return json;
         }
     }
