@@ -87,10 +87,8 @@ export default {
             }
         },
         cameraState: {
-            type: Array,
-            default() {
-                return [1,0,0,0,0,1,-5.997577765137224e-17,0,0,5.997577765137224e-17,1,0,6.419757032144272,-1.6788339834700632,11.106714091265356,1];
-            },
+            type: String,
+            default: '[1,0,0,0,0,1,-5.997577765137224e-17,0,0,5.997577765137224e-17,1,0,6.419757032144272,-1.6788339834700632,11.106714091265356,1]',
         },
         cameraUp: {
             type: Object
@@ -212,7 +210,7 @@ export default {
             deep: true,
             handler( val ) {
                 if ( !this.object ) return;
-                console.info('update camera state');
+                console.info('update camera rotation');
                 this.setSavedCameraState(val);
             }
         },
@@ -498,6 +496,7 @@ export default {
 
         setSavedCameraState(cameraState) {
             this.camera.matrix.fromArray(JSON.parse(cameraState));
+
             this.camera.matrix.decompose(this.camera.position, this.camera.quaternion, this.camera.scale);
         },
 
