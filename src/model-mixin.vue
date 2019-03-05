@@ -194,6 +194,14 @@ export default {
                 this.object.rotation.set( val.x, val.y, val.z );
             }
         },
+        cameraRotation: {
+            deep: true,
+            handler() {
+                if ( !this.object ) return;
+                console.info('update camera rotation');
+                this.updateCamera();
+            }
+        },
         position: {
             deep: true,
             handler( val ) {
