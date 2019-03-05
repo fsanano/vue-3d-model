@@ -23,7 +23,8 @@ import {
     AmbientLight,
     PointLight,
     HemisphereLight,
-    DirectionalLight
+    DirectionalLight,
+    ObjectLoader
 } from 'three'
 import { getSize, getCenter } from './util'
 import { OrbitControls } from './controls/OrbitControls'
@@ -128,6 +129,7 @@ export default {
             camera: new PerspectiveCamera( 45, 1, 0.01, 100000 ),
             scene: new Scene(),
             wrapper: new Object3D(),
+            objectLoader: new ObjectLoader(),
             renderer: null,
             controls: null,
             allLights: [],
@@ -560,7 +562,25 @@ export default {
 
             this.renderer.render( this.scene, this.camera )
 
-        }
+        },
+
+        fromJSON( json ) {
+
+            const camera = this.loader.parse( json.camera );
+
+            this.camera.copy( camera );
+            this.camera.updateProjectionMatrix();
+
+        },
+
+        toJSON() {
+            const json = {
+                camera: this.camera.toJSON(),
+                scene: this.scene.toJSON(),
+            };
+            return json;
+        },
+
     }
 }
 

@@ -46690,6 +46690,7 @@ var script = {
             camera: new PerspectiveCamera(45, 1, 0.01, 100000),
             scene: new Scene(),
             wrapper: new Object3D(),
+            objectLoader: new ObjectLoader(),
             renderer: null,
             controls: null,
             allLights: [],
@@ -47095,6 +47096,20 @@ var script = {
         render: function render() {
 
             this.renderer.render(this.scene, this.camera);
+        },
+        fromJSON: function fromJSON(json) {
+
+            var camera = this.loader.parse(json.camera);
+
+            this.camera.copy(camera);
+            this.camera.updateProjectionMatrix();
+        },
+        toJSON: function toJSON() {
+            var json = {
+                camera: this.camera.toJSON(),
+                scene: this.scene.toJSON()
+            };
+            return json;
         }
     }
 };
