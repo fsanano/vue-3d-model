@@ -47099,7 +47099,7 @@ var script = {
         },
         fromJSON: function fromJSON(json) {
             console.info('json', json);
-            var camera = this.loader.parse(json.camera);
+            var camera = this.objectLoader.parse(json.camera);
             console.info('fromJson', camera);
 
             this.camera.copy(camera);

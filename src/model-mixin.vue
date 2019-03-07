@@ -566,7 +566,7 @@ export default {
 
         fromJSON( json ) {
             console.info('json', json);
-            const camera = this.loader.parse( json.camera );
+            const camera = this.objectLoader.parse( json.camera );
             console.info('fromJson', camera);
 
             this.camera.copy( camera );
