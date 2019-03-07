@@ -47098,7 +47098,7 @@ var script = {
             this.renderer.render(this.scene, this.camera);
         },
         fromJSON: function fromJSON(json) {
-
+            console.info('json', json);
             var camera = this.loader.parse(json.camera);
             console.info('fromJson', camera);
 
