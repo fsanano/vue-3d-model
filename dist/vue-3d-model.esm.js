@@ -46648,10 +46648,6 @@ var script = {
                 return { x: 0, y: 0, z: 0 };
             }
         },
-        cameraState: {
-            type: String,
-            default: '[1,0,0,0,0,1,-5.997577765137224e-17,0,0,5.997577765137224e-17,1,0,6.419757032144272,-1.6788339834700632,11.106714091265356,1]'
-        },
         cameraUp: {
             type: Object
         },
@@ -46690,7 +46686,6 @@ var script = {
             camera: new PerspectiveCamera(45, 1, 0.01, 100000),
             scene: new Scene(),
             wrapper: new Object3D(),
-            objectLoader: new ObjectLoader(),
             renderer: null,
             controls: null,
             allLights: [],
@@ -46762,22 +46757,6 @@ var script = {
             handler: function handler(val) {
                 if (!this.object) return;
                 this.object.rotation.set(val.x, val.y, val.z);
-            }
-        },
-        cameraRotation: {
-            deep: true,
-            handler: function handler() {
-                if (!this.object) return;
-                console.info('update camera rotation');
-                this.updateCamera();
-            }
-        },
-        cameraState: {
-            deep: true,
-            handler: function handler(val) {
-                if (!this.object) return;
-                console.info('update camera rotation');
-                this.setSavedCameraState(val);
             }
         },
         position: {
@@ -46887,7 +46866,6 @@ var script = {
         },
         update: function update() {
 
-            this.setSavedCameraState(this.cameraState);
             this.updateRenderer();
             this.updateCamera();
             this.updateLights();
@@ -47034,14 +47012,8 @@ var script = {
         },
         cameraUpdate: function cameraUpdate(event) {
             var cameraState = JSON.stringify(this.camera.matrix.toArray());
-            console.clear();
-            console.info('cameraState', cameraState);
-            this.$emit('on-camera-update', cameraState);
-        },
-        setSavedCameraState: function setSavedCameraState(cameraState) {
-            this.camera.matrix.fromArray(JSON.parse(cameraState));
-
-            this.camera.matrix.decompose(this.camera.position, this.camera.quaternion, this.camera.scale);
+            console.info('matrix', matrix);
+            this.$emit('on-camera-update', matrix);
         },
         load: function load() {
             var _this3 = this;
@@ -47096,23 +47068,6 @@ var script = {
         render: function render() {
 
             this.renderer.render(this.scene, this.camera);
-        },
-        fromJSON: function fromJSON(json) {
-            console.info('json', json);
-            console.info('this.objectLoader', this.objectLoader);
-            var camera = this.objectLoader.parse(json.camera);
-            console.info('fromJson', camera);
-
-            this.camera.copy(camera);
-            this.camera.aspect = this.size.width / this.size.height;
-            this.camera.updateProjectionMatrix();
-        },
-        toJSON: function toJSON() {
-            var json = {
-                camera: this.camera.toJSON()
-            };
-            console.info('toJson json:', json);
-            return json;
         }
     }
 };
